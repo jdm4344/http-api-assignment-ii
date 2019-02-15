@@ -55,8 +55,7 @@
     };
 
     // Sends a POST request to the server
-    const sendPost = (e, nameForm) => {
-      console.log("Sending POST");      
+    const sendPost = (e, nameForm) => {  
       const nameAction = nameForm.getAttribute("action");
       const nameMethod = nameForm.getAttribute("method");
 
@@ -85,8 +84,6 @@
 
       const userAction = urlField.value;
       const userMethod = methodSelect.value;
-
-      console.log(`Sending ${userMethod}`); 
 
       const xhr = new XMLHttpRequest();
       xhr.open(userMethod, userAction); // method, url

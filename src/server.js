@@ -24,7 +24,7 @@ const handlePost = (request, response, parsedUrl) => {
     request.on('end', () => {
       const bodyString = Buffer.concat(body).toString();
       const bodyParams = query.parse(bodyString);
-      console.dir(bodyParams);
+      // console.dir(bodyParams);
       jsonHandler.addUser(request, response, bodyParams);
     });
   }
@@ -58,15 +58,15 @@ const onRequest = (request, response) => {
 
   switch (request.method) {
     case 'POST':
-      console.dir('POST requested');
+      // console.dir('POST requested');
       handlePost(request, response, parsedUrl);
       break;
     case 'GET':
-      console.dir('GET requested');
+      // console.dir('GET requested');
       handleGet(request, response, parsedUrl);
       break;
     case 'HEAD':
-      console.dir('HEAD requested');
+      // console.dir('HEAD requested');
       handleHead(request, response, parsedUrl);
       break;
     default:

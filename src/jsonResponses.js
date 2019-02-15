@@ -61,9 +61,8 @@ const addUser = (request, response, body) => {
 };
 
 // Returns response for if the requested page does not exist
-const notFound = (request, response, isHead=false) => {
+const notFound = (request, response, isHead = false) => {
   if (isHead === true) {
-    console.log("isHead = " + isHead);
     return respondJSONMeta(request, response, 404);
   }
   const responseJSON = {
