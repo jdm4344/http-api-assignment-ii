@@ -6,6 +6,7 @@ const jsonHandler = require('./jsonResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+// Handles POST request for creating or updateing users
 const handlePost = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/addUser') {
     const body = [];
@@ -29,6 +30,7 @@ const handlePost = (request, response, parsedUrl) => {
   }
 };
 
+// Handles GET requests, returns client, css, or users
 const handleGet = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/' || parsedUrl.pathname === '/client.html') {
     htmlHandler.getIndex(request, response);
@@ -41,14 +43,16 @@ const handleGet = (request, response, parsedUrl) => {
   }
 };
 
+// Handles head requests
 const handleHead = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/getUsers') {
     jsonHandler.getUsers(request, response, true);
   } else {
-    jsonHandler.notFound(request, response);
+    jsonHandler.notFound(request, response, true);
   }
 };
 
+// Determines response to send based on request
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
 

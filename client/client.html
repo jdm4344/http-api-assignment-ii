@@ -19,7 +19,7 @@
       let json = "";
 
       // Handle responses without a body
-      if(parseResponse && xhr.status != 204 && xhr.status != 404) {
+      if(parseResponse && xhr.status != 204) {
         json = parseJSON(xhr);
       }
 
@@ -42,7 +42,11 @@
           content.innerHTML = `<b>Bad Request</b><p>Message: ${json.message}</p>`;          
           break;
         case 404:
-          content.innerHTML = `<b>Resource Not Found</b>`;          
+          if(json === "") {
+            content.innerHTML = `<b>Resource Not Found</b>`;
+          } else {           
+            content.innerHTML = `<b>Success</b><p>${json.message}</p>`;
+          }
           break;
         default:
           content.innerHTML = `<b>Error code not implemented by client</b>`;
@@ -73,7 +77,8 @@
       return false;
     };
 
-    // Sends a GET request to the server
+    // Sends a GET or HEAD request to the server
+    // TODO: bad naming
     const sendGet = (e, userForm) => {     
       const urlField = userForm.querySelector("#urlField");
       const methodSelect = userForm.querySelector("#methodSelect");
@@ -86,6 +91,7 @@
       const xhr = new XMLHttpRequest();
       xhr.open(userMethod, userAction); // method, url
       xhr.setRequestHeader("Accept", "application/json");
+      // Tell the server whether the request is GET or HEAD
       if(userMethod === "head"){
         xhr.onload = () => handleResponse(xhr, false);
       } else {
