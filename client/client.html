@@ -8,7 +8,7 @@
   <script type="text/babel">
     const parseJSON = (xhr) => {
       const obj = JSON.parse(xhr.response);
-      console.dir(obj);
+      // console.dir(obj);
 
       return obj;
     };
@@ -18,7 +18,8 @@
       const content = document.querySelector('#content');
       let json = "";
 
-      if(parseResponse) {
+      // Handle responses without a body
+      if(parseResponse && xhr.status != 204) {
         json = parseJSON(xhr);
       }
 
@@ -28,7 +29,8 @@
           if(json === "") {
             content.innerHTML = `<b>Success</b>`;
           } else {
-            content.innerHTML = `<b>Success</b><p>${json}</p>`;
+            json = parseJSON(xhr);            
+            content.innerHTML = `<b>Success</b><p>${JSON.stringify(json.users)}</p>`;
           }
           break;
         case 201:
