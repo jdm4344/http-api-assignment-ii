@@ -19,7 +19,7 @@
       let json = "";
 
       // Handle responses without a body
-      if(parseResponse && xhr.status != 204) {
+      if(parseResponse && xhr.status != 204 && xhr.status != 404) {
         json = parseJSON(xhr);
       }
 
@@ -28,8 +28,7 @@
           // Only add the object to the page if users exist
           if(json === "") {
             content.innerHTML = `<b>Success</b>`;
-          } else {
-            json = parseJSON(xhr);            
+          } else {           
             content.innerHTML = `<b>Success</b><p>${JSON.stringify(json.users)}</p>`;
           }
           break;
@@ -41,6 +40,9 @@
           break;
         case 400:
           content.innerHTML = `<b>Bad Request</b><p>Message: ${json.message}</p>`;          
+          break;
+        case 404:
+          content.innerHTML = `<b>Resource Not Found</b>`;          
           break;
         default:
           content.innerHTML = `<b>Error code not implemented by client</b>`;

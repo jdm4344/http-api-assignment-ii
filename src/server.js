@@ -30,20 +30,22 @@ const handlePost = (request, response, parsedUrl) => {
 };
 
 const handleGet = (request, response, parsedUrl) => {
-  if(parsedUrl.pathname === '/'){
+  if (parsedUrl.pathname === '/' || parsedUrl.pathname === '/client.html') {
     htmlHandler.getIndex(request, response);
   } else if (parsedUrl.pathname === '/style.css') {
     htmlHandler.getCSS(request, response);
   } else if (parsedUrl.pathname === '/getUsers') {
     jsonHandler.getUsers(request, response);
   } else {
-    
+    jsonHandler.notFound(request, response);
   }
 };
 
 const handleHead = (request, response, parsedUrl) => {
   if (parsedUrl.pathname === '/getUsers') {
     jsonHandler.getUsers(request, response, true);
+  } else {
+    jsonHandler.notFound(request, response);
   }
 };
 
@@ -64,7 +66,6 @@ const onRequest = (request, response) => {
       handleHead(request, response, parsedUrl);
       break;
     default:
-
       break;
   }
 };

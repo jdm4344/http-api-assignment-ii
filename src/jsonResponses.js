@@ -53,7 +53,12 @@ const addUser = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
+const notFound = (request, response) => {
+  respondJSONMeta(request, response, 404);
+};
+
 module.exports = {
   getUsers,
   addUser,
+  notFound,
 };
